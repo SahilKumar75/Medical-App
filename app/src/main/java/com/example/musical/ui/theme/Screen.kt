@@ -8,14 +8,14 @@ sealed class Screen(val title: String, val route: String) {
     sealed class BottomScreen(
         val bTitle: String, val bRoute: String, @DrawableRes val icon: Int
     ):Screen(bTitle,bRoute){
-        object Home : BottomScreen("Home", "home", R.drawable.baseline_music_video_24)
+        object Home : BottomScreen("Home", "home", R.drawable.baseline_medical_services_24)
 
         object Library : BottomScreen(
-            "Library", "library", R.drawable.baseline_library_music_24
+            "Help", "library", R.drawable.baseline_local_hospital_24
         )
         object Browse: BottomScreen(
-            "Browse", "browse",
-            R.drawable.baseline_apps_24
+            "Reports", "browse",
+            R.drawable.baseline_menu_book_24
         )
     }
 
@@ -29,9 +29,9 @@ sealed class Screen(val title: String, val route: String) {
             R.drawable.ic_account
         )
         object Subscription: DrawerScreen(
-            "Subscription",
+            "Log Out",
             "subscribe",
-            R.drawable.ic_subscribe
+            R.drawable.baseline_logout_24
         )
 
         object AddAccount: DrawerScreen(

@@ -2,7 +2,6 @@ package com.example.musical.ui.theme
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.R
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -49,11 +48,11 @@ fun AccountView(){
 
         Row(modifier = Modifier.padding(top = 16.dp)) {
             Icon(
-                painter = painterResource(id = com.example.musical.R.drawable.baseline_music_video_24),
-                contentDescription = "My Music",
+                painter = painterResource(id = com.example.musical.R.drawable.baseline_medical_services_24),
+                contentDescription = "Ongoing treatment",
                 modifier = Modifier.padding(end = 8.dp)
             )
-            Text(text = "My Music")
+            Text(text = "Ongoing treatment")
         }
         Divider()
 
