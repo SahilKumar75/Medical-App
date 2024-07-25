@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
@@ -38,7 +39,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.ui.unit.sp
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -161,13 +161,25 @@ fun AppointmentCard(navController: NavController) {
     }
 }
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(searchQuery: String, onQueryChange: (String) -> Unit) {
-    TextField(
+    OutlinedTextField(
         value = searchQuery,
         onValueChange = onQueryChange,
         label = { Text("Search") },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Filled.Search,
+                contentDescription = "Search Icon"
+            )
+        },
+        shape = RoundedCornerShape(24.dp), // Adjust the value for desired roundness
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            unfocusedBorderColor = Color.Gray,
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
@@ -208,7 +220,6 @@ fun CircleIconButton(icon: ImageVector, contentDescription: String?) {
     }
 }
 
-
 @Composable
 fun AppNavigator() {
     val navController = rememberNavController()
@@ -222,5 +233,3 @@ fun AppNavigator() {
         }
     }
 }
-
-
