@@ -67,7 +67,6 @@ fun MainView(){
     val isSheetFullScreen by remember{ mutableStateOf(false) }
 
     val modifier = if(isSheetFullScreen) Modifier.fillMaxSize() else Modifier.fillMaxWidth()
-    // Allow us to find out on which "View" we current are
     val controller: NavController = rememberNavController()
     val navBackStackEntry by controller.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -90,31 +89,38 @@ fun MainView(){
 
     val roundedCornerRadius = if(isSheetFullScreen) 0.dp else 12.dp
 
-    val bottomBar:  @Composable () -> Unit = {
-        if(currentScreen is Screen.DrawerScreen || currentScreen == Screen.BottomScreen.Home){
-            BottomNavigation(Modifier.wrapContentSize()) {
-                screensInBottom.forEach{
-                        item ->
+    val bottomBar: @Composable () -> Unit = {
+        if (currentScreen is Screen.DrawerScreen || currentScreen == Screen.BottomScreen.Home) {
+            BottomNavigation(
+                modifier = Modifier.wrapContentSize(),
+                backgroundColor = Color(0xFF006eff) // Set the background color to #006eff
+            ) {
+                screensInBottom.forEach { item ->
                     val isSelected = currentRoute == item.bRoute
                     Log.d("Navigation", "Item: ${item.bTitle}, Current Route: $currentRoute, Is Selected: $isSelected")
-                    val tint = if(isSelected)Color.White else Color.Black
-                    BottomNavigationItem(selected = currentRoute == item.bRoute,
-                        onClick = { controller.navigate(item.bRoute)
+                    val tint = if (isSelected) Color.White else Color.Black
+                    BottomNavigationItem(
+                        selected = currentRoute == item.bRoute,
+                        onClick = {
+                            controller.navigate(item.bRoute)
                             title.value = item.bTitle
-                        }, icon = {
-
-                            Icon(tint= tint,
-                                contentDescription = item.bTitle, painter= painterResource(id = item.icon))
                         },
-                        label = { Text(text = item.bTitle, color = tint )}
-                        , selectedContentColor = Color.White,
+                        icon = {
+                            Icon(
+                                painter = painterResource(id = item.icon),
+                                contentDescription = item.bTitle,
+                                tint = tint
+                            )
+                        },
+                        label = { Text(text = item.bTitle, color = tint) },
+                        selectedContentColor = Color.White,
                         unselectedContentColor = Color.Black
-
                     )
                 }
             }
         }
     }
+
 
     ModalBottomSheetLayout(
         sheetState = modalSheetState,
@@ -141,7 +147,6 @@ fun MainView(){
                         }
                     },
                     navigationIcon = { IconButton(onClick = {
-                        // Open the drawer
                         scope.launch {
                             scaffoldState.drawerState.open()
                         }
@@ -216,9 +221,7 @@ fun MoreBottomSheet(modifier: Modifier){
         Modifier
             .fillMaxWidth()
             .height(300.dp)
-            .background(
-                MaterialTheme.colors.primarySurface
-            )
+            .background(Color(0xFF006eff))
     ){
         Column(modifier = modifier.padding(16.dp), verticalArrangement = Arrangement.SpaceBetween){
             Row(modifier = modifier.padding(16.dp)){
