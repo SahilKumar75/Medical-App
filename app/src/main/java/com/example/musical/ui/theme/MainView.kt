@@ -1,5 +1,6 @@
 package com.example.musical.ui.theme
 
+import PatientDetailsScreen
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -253,28 +254,28 @@ fun MoreBottomSheet(modifier: Modifier){
 
 
 @Composable
-fun Navigation(navController: NavController, viewModel: MainViewModel, pd:PaddingValues){
-
-    NavHost(navController = navController as NavHostController,
-        startDestination = Screen.DrawerScreen.Account.route, modifier = Modifier.padding(pd) ){
-
-        composable(Screen.BottomScreen.Home.bRoute){
-            Home()
+fun Navigation(navController: NavController, viewModel: MainViewModel, pd: PaddingValues) {
+    NavHost(navController = navController as NavHostController, startDestination = Screen.BottomScreen.Home.bRoute, modifier = Modifier.padding(pd)) {
+        composable(Screen.BottomScreen.Home.bRoute) {
+            Home(navController)
         }
-        composable(Screen.BottomScreen.Browse.bRoute){
+        composable(Screen.BottomScreen.Browse.bRoute) {
             Report()
         }
-
-        composable(Screen.BottomScreen.Library.bRoute){
+        composable(Screen.BottomScreen.Library.bRoute) {
             Help()
         }
-
-        composable(Screen.DrawerScreen.Account.route){
+        composable(Screen.DrawerScreen.Account.route) {
             AccountView()
         }
-        composable(Screen.DrawerScreen.Subscription.route){
+        composable(Screen.DrawerScreen.Subscription.route) {
             Subscription()
         }
+        composable("patient_details") {
+            PatientDetailsScreen(onNavigateBack = { navController.popBackStack() })
+        }
     }
-
 }
+
+
+

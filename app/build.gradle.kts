@@ -51,6 +51,11 @@ android {
 
 dependencies {
 
+
+    implementation ("androidx.compose.material:material-icons-core:1.4.3")
+    implementation ("androidx.compose.material:material-icons-extended:1.4.3")
+    implementation ("androidx.navigation:navigation-compose:2.5.3")
+    implementation ("androidx.compose.material3:material3:1.1.0")
     implementation("com.google.accompanist:accompanist-flowlayout:0.24.13-rc")
     implementation(libs.androidx.benchmark.macro)
     val nav_version = "2.7.5"
