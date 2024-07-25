@@ -41,7 +41,6 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun Home() {
     var showDialog by remember { mutableStateOf(false) }
-
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(16.dp),
@@ -52,7 +51,7 @@ fun Home() {
         items(4) { index ->
             ElevatedCard(
                 elevation = CardDefaults.cardElevation(
-                    defaultElevation = 6.dp
+                    defaultElevation = 10.dp
                 ),
                 modifier = Modifier
                     .size(width = 240.dp, height = 150.dp)

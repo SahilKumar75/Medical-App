@@ -262,11 +262,11 @@ fun Navigation(navController: NavController, viewModel: MainViewModel, pd:Paddin
             Home()
         }
         composable(Screen.BottomScreen.Browse.bRoute){
-            Browse()
+            Report()
         }
 
         composable(Screen.BottomScreen.Library.bRoute){
-            Library()
+            Help()
         }
 
         composable(Screen.DrawerScreen.Account.route){

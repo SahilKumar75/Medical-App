@@ -20,7 +20,7 @@ import androidx.compose.material.Text
 
 
 @Composable
-fun Library(){
+fun Help(){
     LazyColumn(){
         items(libraries){
                 lib ->
