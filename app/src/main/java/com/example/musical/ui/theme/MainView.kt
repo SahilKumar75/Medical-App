@@ -43,6 +43,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -257,6 +258,13 @@ fun MoreBottomSheet(modifier: Modifier){
 
 
 @Composable
+fun LogOut() {
+    val context = LocalContext.current
+    LogOut(context = context)
+}
+
+
+@Composable
 fun Navigation(navController: NavController, viewModel: MainViewModel, pd: PaddingValues) {
     NavHost(navController = navController as NavHostController, startDestination = Screen.BottomScreen.Home.bRoute, modifier = Modifier.padding(pd)) {
         composable(Screen.BottomScreen.Home.bRoute) {
@@ -272,13 +280,16 @@ fun Navigation(navController: NavController, viewModel: MainViewModel, pd: Paddi
             AccountView()
         }
         composable(Screen.DrawerScreen.Subscription.route) {
-            Subscription()
+            LogOut()
         }
         composable("patient_details") {
             PatientDetailsScreen(onNavigateBack = { navController.popBackStack() })
         }
     }
 }
+
+
+
 
 
 
