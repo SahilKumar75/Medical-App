@@ -39,8 +39,25 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.*
+import androidx.compose.material.icons.filled.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.pager.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.yield
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPagerApi::class)
 @Composable
 fun Home(navController: NavController) {
     var searchQuery by remember { mutableStateOf("") }
@@ -63,7 +80,7 @@ fun Home(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-                AppointmentCard(navController = navController)
+                ImageCarousel()
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -72,6 +89,10 @@ fun Home(navController: NavController) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 CircleButtonRow()
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                AppointmentCard(navController = navController)
             }
         }
     )
@@ -91,7 +112,7 @@ fun AppointmentCard(navController: NavController) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFF006eff))
+                .background(Color(0xFF8cdaf2))
                 .padding(16.dp)
         ) {
             Row(
@@ -119,13 +140,13 @@ fun AppointmentCard(navController: NavController) {
                         text = "Dr. Daksh Dhaka",
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
-                            color = Color.White
+                            color = Color(0xFF006eff)
                         )
                     )
                     Text(
                         text = "Heart Surgeon",
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = Color.White
+                            color = Color(0xFF006eff)
                         )
                     )
                 }
@@ -152,7 +173,7 @@ fun AppointmentCard(navController: NavController) {
                 Text(
                     text = "Book Appointment",
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        color = Color.White
+                        color = Color(0xFF006eff)
                     ),
                     fontSize = 14.sp
                 )
@@ -217,6 +238,53 @@ fun CircleIconButton(icon: ImageVector, contentDescription: String?) {
             contentDescription = contentDescription,
             tint = Color.White
         )
+    }
+}
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun ImageCarousel() {
+    val pagerState = rememberPagerState()
+    val images = listOf(
+        R.drawable.image1,
+        R.drawable.image2,
+        R.drawable.image3,
+        R.drawable.image4
+    )
+
+    LaunchedEffect(pagerState) {
+        while (true) {
+            yield()
+            delay(3000) // 3 seconds delay
+            pagerState.animateScrollToPage((pagerState.currentPage + 1) % images.size)
+        }
+    }
+
+    HorizontalPager(
+        count = images.size,
+        state = pagerState,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+    ) { page ->
+        Card(
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxSize()
+                .clickable { /* Handle click action */ },
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 6.dp
+            ),
+        ) {
+            Image(
+                painter = painterResource(id = images[page]),
+                contentDescription = "Image $page",
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+        }
     }
 }
 
