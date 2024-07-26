@@ -40,6 +40,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -63,14 +64,7 @@ fun Home(navController: NavController) {
     var searchQuery by remember { mutableStateOf("") }
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Medical Appointment Booking") },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF006eff)
-                )
-            )
-        },
+
         content = { padding ->
             Column(
                 modifier = Modifier
@@ -112,7 +106,7 @@ fun AppointmentCard(navController: NavController) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFF8cdaf2))
+                .background(Color(0xFF4894fe))
                 .padding(16.dp)
         ) {
             Row(
@@ -140,13 +134,13 @@ fun AppointmentCard(navController: NavController) {
                         text = "Dr. Daksh Dhaka",
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFF006eff)
+                            color = Color(0xFFFFFFFF)
                         )
                     )
                     Text(
                         text = "Heart Surgeon",
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = Color(0xFF006eff)
+                            color = Color(0xFFFFFFFF)
                         )
                     )
                 }
@@ -166,14 +160,14 @@ fun AppointmentCard(navController: NavController) {
                     tint = Color.White,
                     modifier = Modifier
                         .size(24.dp)
-                        .background(Color(0xFF0f294a), CircleShape)
+                        .background(Color(0xFF094999), CircleShape)
                         .padding(4.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "Book Appointment",
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        color = Color(0xFF006eff)
+                        color = Color(0xFFFFFFFF)
                     ),
                     fontSize = 14.sp
                 )
@@ -215,10 +209,10 @@ fun CircleButtonRow() {
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
     ) {
-        CircleIconButton(icon = Icons.Filled.Home, contentDescription = "Home")
-        CircleIconButton(icon = Icons.Filled.Search, contentDescription = "Search")
-        CircleIconButton(icon = Icons.Filled.Notifications, contentDescription = "Notifications")
-        CircleIconButton(icon = Icons.Filled.Settings, contentDescription = "Settings")
+        CircleIconButton(icon = Icons.Filled.LocalHospital, contentDescription = "Hospital")
+        CircleIconButton(icon = Icons.Filled.MedicalServices, contentDescription = "Medical Services")
+        CircleIconButton(icon = Icons.Filled.Medication, contentDescription = "Medication")
+        CircleIconButton(icon = Icons.Filled.HealthAndSafety, contentDescription = "Health and Safety")
     }
 }
 
@@ -228,7 +222,8 @@ fun CircleIconButton(icon: ImageVector, contentDescription: String?) {
         modifier = Modifier
             .size(60.dp)
             .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.primary)
+            .border(2.dp, Color(0xFF006eff), CircleShape)
+            .background(Color.White)
             .clickable { /* Handle click action */ }
             .padding(8.dp),
         contentAlignment = Alignment.Center
@@ -236,7 +231,7 @@ fun CircleIconButton(icon: ImageVector, contentDescription: String?) {
         Icon(
             imageVector = icon,
             contentDescription = contentDescription,
-            tint = Color.White
+            tint = Color(0xFF006eff)
         )
     }
 }
