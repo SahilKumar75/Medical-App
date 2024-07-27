@@ -11,20 +11,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.material.Text
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.musical.R
-
 
 data class Lib(@DrawableRes val icon: Int, val name: String, val phoneNumber: String?)
 
@@ -38,9 +38,14 @@ val libraries = listOf(
 
 @Composable
 fun Help() {
-    LazyColumn {
-        items(libraries) { lib ->
-            LibItem(lib = lib)
+    Card(
+        modifier = Modifier.padding(16.dp),
+        elevation = 8.dp,
+    ) {
+        LazyColumn {
+            items(libraries) { lib ->
+                LibItem(lib = lib)
+            }
         }
     }
 }
@@ -54,9 +59,18 @@ fun LibItem(lib: Lib) {
                 .fillMaxWidth()
                 .padding(vertical = 16.dp)
                 .clickable {
-                    lib.phoneNumber?.let { phoneNumber ->
-                        val intent = Intent(Intent.ACTION_DIAL, Uri.parse(phoneNumber))
-                        context.startActivity(intent)
+                    when (lib.name) {
+                        "Message your Doc" -> {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("sms:"))
+                            intent.putExtra("sms_body", "Hello Doc")
+                            context.startActivity(intent)
+                        }
+                        else -> {
+                            lib.phoneNumber?.let { phoneNumber ->
+                                val intent = Intent(Intent.ACTION_DIAL, Uri.parse(phoneNumber))
+                                context.startActivity(intent)
+                            }
+                        }
                     }
                 },
             horizontalArrangement = Arrangement.SpaceBetween

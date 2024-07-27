@@ -38,6 +38,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import android.graphics.*
 import androidx.compose.foundation.clickable
+import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -56,7 +57,8 @@ fun Report() {
 
     Column(
         modifier = Modifier.height(200.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Text(text = "Your All Medical Reports", style = textStyle)
         Card(
@@ -67,15 +69,23 @@ fun Report() {
             Column(modifier = Modifier.padding(8.dp)) {
                 Column {
                     Text(text = "Blood Report", style = textStyle)
+                    Text(
+                        text = "A brief description of the blood report",
+                        style = MaterialTheme.typography.body1.copy(color = textColor)
+                    )
                     Row(
-                        Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(text = "Red Blood Cells", style = textStyle)
                         TextButton(onClick = {
                             createAndOpenPdf(context)
                         }) {
-                            Row {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
                                 Text(text = "View Full Report", style = textStyle)
                                 Icon(
                                     imageVector = Icons.Filled.KeyboardArrowRight,
@@ -85,25 +95,27 @@ fun Report() {
                         }
                     }
                 }
-                Divider(thickness = 1.dp, modifier = Modifier.padding(horizontal = 8.dp))
-                Row(Modifier.padding(vertical = 16.dp)) {
-                    Box(
-                        modifier = Modifier.clickable {
-                            createAndSharePdf(context)
-                        }
-                    ) {
-                        Text(text = "Share your Report", style = textStyle)
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_baseline_share_24),
-                            contentDescription = "Share your Report",
-                            modifier = Modifier.padding(10.dp)
-                        )
-                    }
+                Divider(thickness = 1.dp, modifier = Modifier.padding(vertical = 8.dp))
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                        .clickable { createAndSharePdf(context) },
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_share_24),
+                        contentDescription = "Share your Report",
+                        modifier = Modifier.padding(end = 8.dp)
+                    )
+                    Text(text = "Share your Report", style = textStyle)
                 }
             }
         }
     }
 }
+
 
 fun createAndOpenPdf(context: Context) {
     // Create a new document
